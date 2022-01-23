@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<head>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .parentdiv {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-color: #D9D7F1;
+        }
+
+        .innerparentdiv {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .countText {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .errmsg {
+            font: bold;
+            font-size: 1.3rem;
+            color: black;
+            margin: 1rem;
+        }
+
+        .btns {
+            transition-duration: 250ms;
+            padding: 0.5rem;
+            width: 13rem;
+            margin: 0.5rem;
+            border-radius: 0.5rem;
+            border-color: transparent;
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: white;
+            font: bold;
+            text-align: center;
+            
+        }
+
+        .btns:hover {
+            transition-duration: 250ms;
+            transform: translate(-5px,-5px)
+        }
+
+        .btns:active {
+            transition-duration: 150ms;
+            transform: translate(0px,0px);
+        }
+
+        .dec {
+            background-color: #FF6363;
+        }
+
+        .inc {
+            background-color: #A3DA8D;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        const Counter =()=>{
+
+            const [count , setCount] = React.useState(0)
+            const [err,setErr] =React.useState('')
+            if (count<0 ){
+                setErr("🚫 🚫 🚫 woah woah Woah Stop ! This counter doesn't acknowledge -ve numbers")
+                setCount(0)
+            }else if(count>0 && err!==''){
+                setErr('')
+            }
+            const counter = React.createElement('div',{className:"countText"},React.createElement('div',null,count==0 && 'Lets Spam those buttons'),React.createElement('div',null,count!=0&& count))
+            const incrementButton = React.createElement('button',{className:'btns inc',onClick: ()=>{setCount((prevState)=>prevState+1)}},'increment')
+            const decrementButton = React.createElement('button',{className:'btns dec',onClick: ()=>{setCount((prevState)=>prevState-1)}}, 'decrement')
+            const buttons = React.createElement('div',null,incrementButton,decrementButton)
+            const errDiv = React.createElement('div',{className: 'errmsg'},err!==''&&err)
+       
+          return   parentDiv = React.createElement('div',{className:"innerparentdiv"},counter,buttons,errDiv)
+        }
+        
+        
+        ReactDOM.render(React.createElement('div',{className:"parentdiv"},React.createElement(Counter)),document.getElementById("app"))
+    </script>
+</body>
+</html>
